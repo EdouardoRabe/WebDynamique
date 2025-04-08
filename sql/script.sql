@@ -1,0 +1,29 @@
+DROP DATABASE IF EXISTS db_s2_ETU003285;
+CREATE DATABASE db_s2_ETU003285;
+USE db_s2_ETU003285;
+
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    is_admin INT DEFAULT 0,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE credit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(100) NOT NULL,
+    montant DECIMAL(10, 2) NOT NULL,
+    depart DECIMAL(10, 2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL
+);
+
+CREATE TABLE depense (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    credit_id INT NOT NULL,
+    montant DECIMAL(10, 2) NOT NULL,
+    date DATE NOT NULL,
+    FOREIGN KEY (credit_id) REFERENCES credit(id) ON DELETE CASCADE
+);
